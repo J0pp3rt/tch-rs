@@ -377,6 +377,9 @@ impl SystemInfo {
                 // as DEP_TORCH_SYS_LIBTORCH_LIB, see:
                 // https://doc.rust-lang.org/cargo/reference/build-scripts.html#the-links-manifest-key
                 println!("cargo:libtorch_lib={}", self.libtorch_lib_dir.display());
+                println!("cargo:rustc-link-arg=-Wl,--no-as-needed");
+                println!("cargo:rustc-link-arg=-Wl,--copy-dt-needed-entries");
+                println!("cargo:rustc-link-arg=-ltorch");
                 cc::Build::new()
                     .cpp(true)
                     .pic(true)
